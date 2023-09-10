@@ -25,7 +25,7 @@ export async function onRequest(context) {
     // // 添加新的 Referer header
     // myHeaders.append("Referer", env.API_URL);
     // 构建修改后的请求对象
-    const modifiedRequest = new Request(env.API_URL + url.pathname + url.search, {
+    const modifiedRequest = new Request('https://www.dameng79.xyz/' + url.pathname + url.search, {
         method: request.method,
         headers: myHeaders,
         body: request.body,
