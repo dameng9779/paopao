@@ -1,0 +1,20 @@
+/* 这里随便写自定义css样式 */
+#app > div > div.layout-menu.use-shadow > div > div:nth-child(4) > ul > li:nth-child(2) {
+ display: block;
+ display: none !important;
+}
+
+.ant-badge-count {
+  display: none !important;
+}
+
+#app > div > div.layout-main > div > div > div.overview-box > div > div:nth-child(4) > div {
+  display: none !important;
+}
+
+@media (min-width: 1200px)
+{
+#app > div > div.layout-main > div > div > div.overview-box > div > div {
+  width: 33.33333333% !important;
+}
+}

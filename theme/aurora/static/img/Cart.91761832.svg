@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在进行浏览器安全检测...</title>
+    <link rel="stylesheet" href="https://www.funcdn.com/funres/css/loading.css">
+</head>
+<body class="default">
+    <div class="loading-box">
+        <div class="header">
+            <div class="icon-loading spin"></div>
+            <div class="loading-text">Loading...</div>
+        </div>
+        <div class="center">
+            <div class="title">在访问之前检查浏览器...</div>
+            <div class="describe">这个过程是自动的，您的浏览器将很快重定向到您所请求的内容。请再等待五秒钟 ... </div>
+            <div class="footer"> DDos protection by <span class="blue-text">FunCDN</span>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.tacool.com/blueimp-md5/2.9.0/js/md5.min.js"></script>
+<script src="https://cdnjs.tacool.com/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var data = {
+        userinfo: 'gWm9IxRtxJkC+VBfaZtP5A',
+        hostinfo: 'pvPS0QI0Sd1yV9wmlXgvGuPPX329HVaSF3e9V0l7cdibkBsF8QedIbrPNX8e3s5W',
+        challenge: 'kakd',
+        answer: 'e5d6d616ab539e1ff9a6353fc8b7050c',
+        code: ''
+    }
+    var start_ts = Date.now();
+    var end_ts = Date.now();
+
+    function calc() {
+        for (code = 100000; code <= 999999; code++) {
+            if (md5(data.challenge + '' + code) == data.answer) {
+                checkCode();
+                return;
+            }
+        }
+    }
+
+    function checkCode() {
+        end_ts = Date.now()
+        data.code = code;
+        console.log(data)
+        console.log(end_ts - start_ts)
+
+        $.ajax({
+            url: 'https://fn-captcha.tacool.com/jsCaptchaVerify',
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                console.log(data)
+                document.cookie = `_funcdn_token=${data.fc_token};path=/`;
+                window.location.reload();
+            },
+            error: function (xhr) {
+                var msg = ''
+                try {
+                    msg = xhr.responseJSON.message
+                } catch (error) {
+                    msg = 'Network Error'
+                }
+                alert(msg);
+            }
+        });
+    }
+    setTimeout(function () {
+        calc()
+    }, 5e2)
+</script>
+</body>
+
+</html>
